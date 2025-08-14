@@ -1,102 +1,110 @@
-/* Body background */
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background-color: #eef2ff; /* Light blue background */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
 
-/* Centering the login card */
-.login-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: linear-gradient(to right, #eef2ff, #c7d2fe); /* Gradient blue background */
-}
-
-/* Main login wrapper */
 .login-wrap {
-  background: #ffffff;
-  padding: 40px;
-  width: 380px;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 100px;
+  padding-right: 40px;
+}
+
+.center {
   text-align: center;
 }
 
-/* Top text and branding */
-.center {
-  margin-bottom: 20px;
-}
-
-.brand div {
+.brand {
   font-size: 24px;
   font-weight: bold;
-  color: #2563eb;
+  color: #1a3d77;
 }
 
 .label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  margin-bottom: 8px;
+  font-size: 20px;
+  margin-top: 20px;
 }
 
-/* Input Fields */
 .input {
   width: 100%;
   padding: 12px;
-  border-radius: 6px;
-  border: 1px solid #d1d5db;
-  margin-bottom: 16px;
+  margin-top: 8px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
   font-size: 14px;
+  color: #555;
 }
 
 .input:focus {
-  outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+  border-color: #4b80f5;
 }
 
-/* Button styling */
 .button {
-  width: 100%;
-  padding: 12px;
-  background-color: #2563eb;
+  width: 100px;
+  padding: 14px;
+  background-color: #4b80f5;
   color: white;
-  font-weight: 600;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-top: 20px;
   cursor: pointer;
-  font-size: 15px;
-  transition: background 0.3s ease;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  margin-left: 150px;
+
 }
 
 .button:hover {
-  background-color: #1d4ed8;
+  background-color: #1a3d77;
 }
 
-/* Error message styling */
 .error {
-  color: red;
-  font-size: 13px;
-  margin-top: 8px;
+  color: #ff4d4d;
+  font-size: 12px;
+  margin-top: 10px;
 }
 
-/* Info section */
 .card {
-  background-color: #f0f9ff;
-  padding: 14px;
-  border-radius: 6px;
-  margin-top: 16px;
-  color: #0c4a6e;
-  font-size: 13px;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+  text-align: center;
 }
 
 .ass-card-muted {
-  margin-top: 10px;
-  font-size: 13px;
-  color: #0c4a6e;
+  font-size: 15 px;
+  color: #508eeb;
+}
+
+.user-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.user-toggle button {
+  background: none;
+  border: 2px solid #4b80f5;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #4b80f5;
+  cursor: pointer;
+}
+
+.user-toggle button.active {
+  background-color: #4b80f5;
+  color: white;
+}
+
+.heading {
+  font-size: 45px;
+}
+
+body {
+  background-color: #e7eeff;
 }

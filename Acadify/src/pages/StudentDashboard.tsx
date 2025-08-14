@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import type { Assignment, Submission, User } from "../types";
 import { Storage } from "../utils/storage";
+import "./studentDashboard.css";
 
 export default function StudentDashboard({ user, onLogout }: { user: User; onLogout: () => void }) {
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [selectedAssignment, setSelectedAssignment] = useState<Assignment | null>(null);
   const [file, setFile] = useState<File | null>(null);
+  const [grades, setGrades] = useState<Record<string, Record<string, number>>>({}); // Track grades
 
-  // Load assignments & submissions
+  // Load assignments, submissions, and grades
   useEffect(() => {
     setAssignments(Storage.getAssignments());
     setSubmissions(Storage.getSubmissions());
+    const storedGrades = JSON.parse(localStorage.getItem("grades") || "{}");
+    setGrades(storedGrades);
   }, []);
 
   // Listen for storage changes
@@ -19,31 +23,33 @@ export default function StudentDashboard({ user, onLogout }: { user: User; onLog
     const handler = () => {
       setAssignments(Storage.getAssignments());
       setSubmissions(Storage.getSubmissions());
+      const storedGrades = JSON.parse(localStorage.getItem("grades") || "{}");
+      setGrades(storedGrades);
     };
     window.addEventListener("storage", handler);
     return () => window.removeEventListener("storage", handler);
   }, []);
 
-  const submitAssignment = () => {
-    if (!file || !selectedAssignment) return alert("Please select a file");
+  const submitAssignment = (assignment: Assignment) => {
+    if (!file || !assignment) return alert("Please select a file");
 
     const reader = new FileReader();
     reader.onload = () => {
       const newSubmission: Submission = {
         id: crypto.randomUUID(),
-        assignmentId: selectedAssignment.id,
+        assignmentId: assignment.id,
         studentId: user.id,
         studentName: user.name,
         fileName: file.name,
         fileData: reader.result as string, // store as base64
         submittedAt: new Date().toISOString(),
-        files: [ // Add the files property as required by the Submission type
+        files: [
           {
             name: file.name,
             dataUrl: reader.result as string,
             size: file.size,
             type: file.type,
-            data: reader.result as string, // optional, can be included if needed
+            data: reader.result as string,
           }
         ],
       };
@@ -56,11 +62,19 @@ export default function StudentDashboard({ user, onLogout }: { user: User; onLog
     reader.readAsDataURL(file);
   };
 
+  const getTimeRemaining = (dueDate: string) => {
+    const timeDiff = new Date(dueDate).getTime() - new Date().getTime();
+    const daysRemaining = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    if (daysRemaining < 0) return "Due date passed";
+    if (daysRemaining === 0) return "Due tomorrow";
+    return `${daysRemaining} days remaining`;
+  };
+
   return (
     <div className="container">
       <div className="header">
         <div className="brand">
-          <img src="/favicon.svg" width="24" alt="logo" /> Acadify Tracker
+          Acadify Tracker
         </div>
         <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
           <span className="badge">{user.name} • Student</span>
@@ -70,53 +84,76 @@ export default function StudentDashboard({ user, onLogout }: { user: User; onLog
 
       <h2>Student Dashboard</h2>
 
+      <div className="status-cards">
+        <div className="status-card">
+          <div className="status-title">Total Assignments</div>
+          <div className="status-value">{assignments.length}</div>
+        </div>
+        <div className="status-card">
+          <div className="status-title">Total Submissions</div>
+          <div className="status-value">{submissions.length}</div>
+        </div>
+      </div><br></br>
+
+            <p style={{ fontSize: "40px" }}>Assignments:</p>
+
       <div className="grid assignments">
-        {assignments.map(a => {
+        {assignments.map((a) => {
           const hasSubmitted = submissions.some(
-            s => s.assignmentId === a.id && s.studentId === user.id
+            (s) => s.assignmentId === a.id && s.studentId === user.id
           );
+          const timeRemaining = getTimeRemaining(a.dueDate);
+          const grade = grades[a.id]?.[user.id]; // Retrieve grade from storage
 
           return (
             <div key={a.id} className="card">
-              <h3>{a.title}</h3>
-              <p>{a.description}</p>
-              <p>Due: {a.dueDate}</p>
+              <h3
+                className="assignment-title"
+                onClick={() => setSelectedAssignment(selectedAssignment?.id === a.id ? null : a)}
+              >
+                {a.title}
+              </h3>
 
-              {!hasSubmitted ? (
-                <button
-                  className="button"
-                  onClick={() => setSelectedAssignment(a)}
-                >
-                  Submit Assignment
-                </button>
-              ) : (
-                <span className="badge">Submitted</span>
-              )}
+              <div
+                className={`assignment-details ${selectedAssignment?.id === a.id ? "show" : ""}`}
+              >
+                <p>{a.description}</p>
+                <p>Due: {a.dueDate}</p>
+                <div className={`time-remaining ${timeRemaining === "Due tomorrow" ? "due-tomorrow" : ""}`}>
+                  {timeRemaining}
+                </div>
+
+                {!hasSubmitted ? (
+                  <div>
+                    <input
+                      type="file"
+                      onChange={(e) => setFile(e.target.files?.[0] || null)}
+                    />
+                    <button
+                      className="button"
+                      onClick={() => submitAssignment(a)} // Submit the selected assignment
+                    >
+                      Submit Assignment
+                    </button>
+                  </div>
+                ) : (
+                  <span style={{ marginTop: "50px" }} className="badge">
+                    Submitted
+                  </span>
+                )}
+
+                {/* Display grade if it exists */}
+                {hasSubmitted && grade !== undefined && (
+                  <div style={{ marginTop: "20px" }}>
+                    <p className="badge">Grade: {grade} / {a.maxMarks}</p>
+                  </div>
+                )}
+              </div>
             </div>
           );
         })}
       </div>
-
-      {/* Modal for submission */}
-      {selectedAssignment && (
-        <div className="modal">
-          <div className="modal-content">
-            <h3>Submit: {selectedAssignment.title}</h3>
-            <input
-              type="file"
-              onChange={e => setFile(e.target.files?.[0] || null)}
-            />
-            <div style={{ display: "flex", gap: 10 }}>
-              <button className="button" onClick={submitAssignment}>
-                Submit
-              </button>
-              <button className="button ghost" onClick={() => setSelectedAssignment(null)}>
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
+

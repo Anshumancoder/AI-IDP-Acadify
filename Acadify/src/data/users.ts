@@ -13,6 +13,14 @@ export const PRESET_USERS: User[] = [
     role: "student",
     email: "s",
     password: "s",
-    name: "P Kashyap",
+    name: "Hriddhan Singh",
+  },
+  {
+    id: "s2",
+    role: "student",
+    email: "s2",
+    password: "s2",
+    name: "Anshuman Verma",
+
   }
 ];

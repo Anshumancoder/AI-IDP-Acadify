@@ -43,6 +43,7 @@ export interface Submission {
   feedback?: string | null; // Feedback for the student
   fileUrl?: string; // Optional URL for file download
   fileName?: string; // Optional name for the file to be downloaded
-  fileData?: string; // Optional base64 data for the file (if needed)
+  fileData?: string | null; // Optional base64 data for the file (if needed)
   submissionDate?: string; // Optional submission date (if different from submittedAt)
+  grade?: number | null; // Optional grade for the submission
 }

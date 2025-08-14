@@ -1,43 +1,107 @@
 .assignment-card {
-  background: #1e1e1e;
-  color: #f1f1f1;
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
+  background-color: var(--card-bg-color);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-light);
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  color: var(--text-color);
 }
 
-.assignment-card:hover {
-  background: #2a2a2a;
+.assignment-card.open {
+  background-color: var(--card-bg-color-darker); /* Optional: Change bg when open */
+  transform: scale(1.05);
+  box-shadow: var(--shadow-medium);
 }
 
 .assignment-card h3 {
-  margin: 0;
+  font-size: 20px;
+  margin: 0 0 10px 0;
+  color: var(--primary-color);
 }
 
 .assignment-details {
-  margin-top: 10px;
+  display: none; /* Hidden by default */
+  animation: fadeIn 0.5s ease-out;
+  padding-top: 15px;
+  border-top: 1px solid var(--border-color);
+  margin-top: 15px;
+}
+
+.assignment-card.open .assignment-details {
+  display: block; /* Display when open */
 }
 
 .info-row {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
-  margin: 10px 0;
+  margin-bottom: 15px;
 }
 
 .info-box {
-  background: #2f2f2f;
-  padding: 6px 12px;
-  border-radius: 5px;
+  background: var(--input-bg-color);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--light-text-color);
+  white-space: nowrap;
+}
+
+.submission-item {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.submission-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.submission-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.submission-grade {
+  background-color: #4CAF50;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .file-link {
-  color: #4caf50;
+  color: var(--primary-color);
   text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
 }
 
 .file-link:hover {
-  text-decoration: underline;
+  color: #388e3c;
+}
+
+.no-submissions {
+  font-style: italic;
+  color: var(--light-text-color);
+}
+
+.grading {
+  margin-top: 10px;
+}
+
+.grading label {
+  margin-right: 10px;
+}
+
+.grading input {
+  padding: 5px;
+  width: 60px;
+  font-size: 14px;
 }
