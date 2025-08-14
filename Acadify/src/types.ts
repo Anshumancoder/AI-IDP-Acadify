@@ -1,5 +1,4 @@
-import AssignmentCard from "./components/AssignmentCard";
-
+// Role type to handle roles more flexibly
 export type Role = "teacher" | "student";
 
 export interface User {
@@ -27,7 +26,7 @@ export interface SubmissionFile {
   dataUrl: string; // base64 Data URL
   size: number; // bytes
   type: string; // mime
-  data?: string; // optional base64 data for the file
+  data?: string; // Optional base64 data for the file (if you need both)
 }
 
 export interface Submission {
@@ -37,13 +36,13 @@ export interface Submission {
   studentName: string;
   submittedAt: string;
   files: SubmissionFile[];
-  score?: number;
-  remarks?: string;
-  content?: string; // optional content for text submissions
-  marks?: null; // optional marks for grading
-  feedback?: null; // optional feedback from teacher
-  fileUrl?: string; // optional URL for file download
-  fileName?: string; // optional name for the file
-  fileData?: string; // optional base64 data for the file
-  submissions?: string; // optional date of submission
+  score?: number; // Optional, might be set after grading
+  remarks?: string; // Optional, feedback or comments from teacher
+  content?: string; // Optional, for text-based submissions
+  marks?: number | null; // Marks for grading, can be null initially
+  feedback?: string | null; // Feedback for the student
+  fileUrl?: string; // Optional URL for file download
+  fileName?: string; // Optional name for the file to be downloaded
+  fileData?: string; // Optional base64 data for the file (if needed)
+  submissionDate?: string; // Optional submission date (if different from submittedAt)
 }
