@@ -1,0 +1,102 @@
+/* Body background */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #eef2ff; /* Light blue background */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Centering the login card */
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to right, #eef2ff, #c7d2fe); /* Gradient blue background */
+}
+
+/* Main login wrapper */
+.login-wrap {
+  background: #ffffff;
+  padding: 40px;
+  width: 380px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Top text and branding */
+.center {
+  margin-bottom: 20px;
+}
+
+.brand div {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2563eb;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+/* Input Fields */
+.input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+/* Button styling */
+.button {
+  width: 100%;
+  padding: 12px;
+  background-color: #2563eb;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background 0.3s ease;
+}
+
+.button:hover {
+  background-color: #1d4ed8;
+}
+
+/* Error message styling */
+.error {
+  color: red;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+/* Info section */
+.card {
+  background-color: #f0f9ff;
+  padding: 14px;
+  border-radius: 6px;
+  margin-top: 16px;
+  color: #0c4a6e;
+  font-size: 13px;
+}
+
+.ass-card-muted {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #0c4a6e;
+}
