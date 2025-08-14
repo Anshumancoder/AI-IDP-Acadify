@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./AssignmentCard.css";
 
+// Define the structure of each submission
 interface Submission {
   studentName: string;
   fileName: string;
@@ -8,6 +9,7 @@ interface Submission {
   fileSize: string;
 }
 
+// Define the props for the AssignmentCard component
 interface AssignmentCardProps {
   title: string;
   description: string;
@@ -15,8 +17,8 @@ interface AssignmentCardProps {
   maxMarks: number;
   allowLate: boolean;
   submissions: Submission[];
-  teacherId: string
-  id: string; // Added id prop to uniquely identify the assignment
+  teacherId: string;
+  id: string; // Assignment ID
   latePenaltyPercent: number;
   createdAt?: string; // Optional, defaults to current date
 }
@@ -28,6 +30,8 @@ const AssignmentCard: React.FC<AssignmentCardProps> = ({
   maxMarks,
   allowLate,
   submissions,
+  latePenaltyPercent,
+  createdAt = new Date().toISOString(), // Default to current date if not provided
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -44,6 +48,8 @@ const AssignmentCard: React.FC<AssignmentCardProps> = ({
             <div className="info-box">Due: {dueDate}</div>
             <div className="info-box">Max: {maxMarks}</div>
             <div className="info-box">{allowLate ? "Late allowed" : "No late"}</div>
+            <div className="info-box">Penalty: {latePenaltyPercent}% per day</div>
+            <div className="info-box">Created At: {createdAt}</div>
           </div>
           <h4>Submissions:</h4>
           <ul>
