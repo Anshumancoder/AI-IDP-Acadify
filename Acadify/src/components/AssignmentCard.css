@@ -1,56 +1,114 @@
+/* Global Variable Definitions */
+:root {
+  --primary-color: #4CAF50;
+  --secondary-color: #388e3c;
+  --card-bg-color: #ffffff;
+  --card-bg-color-darker: #f1f1f1;
+  --text-color: #333333;
+  --light-text-color: #777777;
+  --border-color: #e0e0e0;
+  --input-bg-color: #f9f9f9;
+  --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.15);
+  --shadow-dark: 0 6px 30px rgba(0, 0, 0, 0.2);
+  --hover-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Assignment Card Container */
 .assignment-card {
   background-color: var(--card-bg-color);
   padding: 25px;
   border-radius: 12px;
   box-shadow: var(--shadow-light);
   cursor: pointer;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition: all 0.3s ease;
   color: var(--text-color);
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid var(--border-color);
 }
 
+/* Open state - makes the card grow slightly */
 .assignment-card.open {
-  background-color: var(--card-bg-color-darker); /* Optional: Change bg when open */
+  background-color: var(--card-bg-color-darker);
   transform: scale(1.05);
   box-shadow: var(--shadow-medium);
 }
 
-.assignment-card h3 {
-  font-size: 20px;
-  margin: 0 0 10px 0;
-  color: var(--primary-color);
+/* Hover effect */
+.assignment-card:hover {
+  box-shadow: var(--hover-shadow);
 }
 
+/* Title Styling */
+.assignment-card h3 {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0 0 15px;
+  color: var(--primary-color);
+  transition: color 0.3s ease;
+}
+
+.assignment-card:hover h3 {
+  color: var(--secondary-color);
+}
+
+/* Card Details */
 .assignment-details {
-  display: none; /* Hidden by default */
-  animation: fadeIn 0.5s ease-out;
+  display: none;
   padding-top: 15px;
   border-top: 1px solid var(--border-color);
   margin-top: 15px;
+  animation: fadeIn 0.5s ease-out;
 }
 
+/* Show details when card is open */
 .assignment-card.open .assignment-details {
-  display: block; /* Display when open */
+  display: block;
 }
 
+/* Info Row and Info Boxes */
 .info-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 15px;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
 .info-box {
   background: var(--input-bg-color);
-  padding: 8px 12px;
+  padding: 10px 15px;
   border-radius: 8px;
   font-size: 14px;
   color: var(--light-text-color);
   white-space: nowrap;
+  min-width: 100px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.info-box:hover {
+  background-color: var(--card-bg-color-darker);
+}
+
+/* Submissions List */
+h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--primary-color);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .submission-item {
-  margin-bottom: 15px;
-  padding-bottom: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -60,22 +118,57 @@
   padding-bottom: 0;
 }
 
+/* Submission Header */
 .submission-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
+.submission-header strong {
+  font-size: 16px;
+  color: var(--text-color);
+}
+
+/* Grade Label & Input */
+.grading {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.grading label {
+  margin-right: 10px;
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.grading input {
+  padding: 5px;
+  width: 70px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  transition: border-color 0.3s ease;
+}
+
+.grading input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+/* Grade Badge */
 .submission-grade {
-  background-color: #4CAF50;
+  background-color: var(--primary-color);
   color: white;
-  padding: 4px 8px;
+  padding: 4px 10px;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 600;
 }
 
+/* File Link */
 .file-link {
   color: var(--primary-color);
   text-decoration: none;
@@ -84,24 +177,172 @@
 }
 
 .file-link:hover {
-  color: #388e3c;
+  color: var(--secondary-color);
 }
 
+/* No Submissions */
 .no-submissions {
   font-style: italic;
   color: var(--light-text-color);
-}
-
-.grading {
+  font-size: 14px;
   margin-top: 10px;
 }
 
-.grading label {
-  margin-right: 10px;
+/* Animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
-.grading input {
-  padding: 5px;
-  width: 60px;
-  font-size: 14px;
+/* Responsive Design */
+@media (max-width: 768px) {
+  .assignment-card {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .info-row {
+    gap: 10px;
+  }
+
+  .info-box {
+    min-width: auto;
+    text-align: left;
+  }
+
+  .submission-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .grading {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .grading label {
+    margin-bottom: 5px;
+  }
+
+  .grading input {
+    width: 100%;
+    max-width: 120px;
+  }
+
+  .file-link {
+    font-size: 12px;
+  }
+}
+
+/* Smaller devices */
+@media (max-width: 480px) {
+  .assignment-card {
+    padding: 15px;
+  }
+
+  .assignment-card h3 {
+    font-size: 18px;
+  }
+
+  .info-box {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .grading input {
+    font-size: 12px;
+  }
+
+  .submission-grade {
+    font-size: 12px;
+  }
+
+  .submission-header {
+    font-size: 14px;
+  }
+
+  .file-link {
+    font-size: 12px;
+  }
+}
+
+/* Focus and Active States for Accessibility */
+.assignment-card:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.assignment-card:active {
+  transform: scale(1);
+  box-shadow: var(--shadow-dark);
+}
+
+/* Loading or Placeholder states */
+.assignment-card.loading {
+  background-color: #f0f0f0;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.assignment-card.loading .assignment-details {
+  display: none;
+}
+
+.assignment-card.loading h3 {
+  color: #b0b0b0;
+}
+
+.assignment-card.loading .submission-item {
+  background-color: #e0e0e0;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Error States */
+.assignment-card.error {
+  border: 1px solid #e74c3c;
+  background-color: #f9ebeb;
+}
+
+.assignment-card.error h3 {
+  color: #e74c3c;
+}
+
+.assignment-card.error .assignment-details {
+  background-color: #fbdcdc;
+}
+
+.assignment-card.error .submission-item {
+  background-color: #fce8e8;
+}
+
+/* Tooltip for file links */
+.file-link::after {
+  content: "Click to download the file";
+  display: block;
+  font-size: 12px;
+  color: var(--light-text-color);
+  margin-top: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.file-link:hover::after {
+  opacity: 1;
+}
+
+/* Active State for File Link */
+.file-link:active {
+  color: var(--secondary-color);
+  transform: scale(0.98);
+  transition: transform 0.1s ease-in-out;
+}
+
+/* Card hover color change */
+.assignment-card:hover .file-link {
+  color: var(--secondary-color);
 }

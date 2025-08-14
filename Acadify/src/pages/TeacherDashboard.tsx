@@ -113,7 +113,7 @@ export default function TeacherDashboard({ user, onLogout }: { user: User; onLog
       </div>
 
       {/* Create Assignment Button */}
-      <button className="button" onClick={openCreateAssignmentModal}>Create Assignment</button>
+      <button style={{ width: "200px", textAlign: "left"}} className="button" onClick={openCreateAssignmentModal}>Create Assignment</button>
 
       <h3>Assignments</h3>
 
@@ -141,11 +141,12 @@ export default function TeacherDashboard({ user, onLogout }: { user: User; onLog
                         <p><strong>{sub.studentName}</strong> - {sub.fileName}</p>
                         <p>Status: {sub.grade === undefined ? "Not Graded" : `Graded: ${sub.grade}`}</p>
                         <button
+                          style={{textAlign: "center", alignItems: "center"}}
                           id="submission-grade-button"
                           className="button ghost"
                           onClick={() => openGradingModal(assignment.id, sub.id)}
                         >
-                          Grade Submission
+                          Grade
                         </button>
                       </div>
                     ))}
@@ -177,7 +178,7 @@ export default function TeacherDashboard({ user, onLogout }: { user: User; onLog
               className="button"
               onClick={() => handleGradeSubmission(selectedAssignmentId!, selectedSubmissionId!, Number(grade))}
             >
-              Submit Grade
+              Submit
             </button>
           </div>
         </div>

@@ -4,6 +4,7 @@ import { Storage } from "../utils/storage";
 import AssignmentCard from "../components/AssignmentCard";
 import SubmitAssignmentModal from "./SubmitAssignmentModal";
 import StatCard from "../components/StatCard";
+import './CreateAssignmentModal.css'
 
 export default function StudentDashboard({ user, onLogout }: { user: User; onLogout: () => void }) {
   const [assignments, setAssignments] = useState<Assignment[]>(Storage.getAssignments());
@@ -55,10 +56,10 @@ export default function StudentDashboard({ user, onLogout }: { user: User; onLog
         {assignments.map((a) => (
           <AssignmentCard
             key={a.id}
-            a={a}
+            a={a} 
             footer={
               <button className="button" onClick={() => setSubmitFor(a.id)}>⬆ Submit Assignment</button>
-            }
+            }       NNN   
           />
         ))}
         {assignments.length === 0 && <div className="card">No assignments yet.</div>}
