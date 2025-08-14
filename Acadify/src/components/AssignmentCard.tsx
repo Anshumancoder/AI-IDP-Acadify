@@ -28,10 +28,6 @@ const AssignmentCard: React.FC<AssignmentCardProps> = ({
   maxMarks,
   allowLate,
   submissions,
-  teacherId,
-  id,
-  latePenaltyPercent,
-  createdAt = new Date().toISOString(),
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
